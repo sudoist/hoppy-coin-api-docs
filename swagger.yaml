@@ -6,15 +6,15 @@ info:
     \  For this sample, you can use the api key `special-key` to test the authorization\
     \ filters."
   version: "1.0.5"
-  title: "Swagger Petstore"
+  title: "Hoppy Coin API"
   termsOfService: "http://swagger.io/terms/"
   contact:
-    email: "apiteam@swagger.io"
+    email: "mail@jcos.io"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "petstore.swagger.io"
-basePath: "/v2"
+host: "api.hoppy.co.in"
+basePath: "/v1"
 tags:
 - name: "pet"
   description: "Everything about your Pets"
@@ -88,7 +88,7 @@ paths:
         description: "Pet object that needs to be added to the store"
         required: true
         schema:
-          $ref: "#/definitions/Pet"
+          $ref: "#/definitions/Score"
       responses:
         405:
           description: "Invalid input"
@@ -713,6 +713,33 @@ definitions:
         description: "User Status"
     xml:
       name: "User"
+  Score:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        description: "Three letter name of player, e.g. AAA, SDO"
+      score:
+        type: "string"
+        description: "Score submitted"
+      level:
+        type: "string"
+      origin:
+        type: "string"
+        description: "Source url of request to validate version"
+      version:
+        type: "string"
+        description: "Version of the game sending request"
+      created_at:
+        type: "string"
+        description: "Displayed date in leaderboards"
+      updated_at:
+        type: "string"
+    xml:
+      name: "Score"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
