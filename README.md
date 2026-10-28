@@ -1,58 +1,21 @@
-# How to host Swagger API documentation with GitHub Pages
-[<img alt="The blog of Peter Evans: How to Host Swagger Documentation With Github Pages" title="View blog post" src="https://peterevans.dev/img/blog-published-badge.svg">](https://peterevans.dev/posts/how-to-host-swagger-docs-with-github-pages/)
+# Hoppy Coin API documentation
 
-This repository is a template for using the [Swagger UI](https://github.com/swagger-api/swagger-ui) to dynamically generate beautiful documentation for your API and host it for free with GitHub Pages.
+Swagger UI documentation for the [Hoppy Coin Laravel API](https://github.com/sudoist/hoppy-coin-api), used by the [Phaser game](https://github.com/sudoist/hoppy-coin).
 
-The template will periodically auto-update the Swagger UI dependency and create a pull request. See the [GitHub Actions workflow here](.github/workflows/update-swagger.yml).
+The previous specification was an unmodified Petstore example. The current `swagger.yaml` describes the known v1 score endpoints; it should be updated alongside API behavior changes.
 
-The example API specification used by this repository can be seen hosted at [https://peter-evans.github.io/swagger-github-pages](https://peter-evans.github.io/swagger-github-pages/).
+## API endpoints
 
-## Steps to use this template
+- `GET /api/v1/scores?level=Ranked1` — retrieve scores for a level.
+- `POST /api/v1/scores` — submit `name`, `score`, and `level` as JSON.
+- Both require the `x-api-key` header. Keys distributed with the browser game are public and do not provide anti-cheat protection.
 
-1. Click the `Use this template` button above to create a new repository from this template.
+The actual response structure and status codes should be checked against the running Laravel API before treating this as a production-verified contract.
 
-2. Go to the settings for your repository at `https://github.com/{github-username}/{repository-name}/settings` and enable GitHub Pages.
+## Maintenance
 
-    ![Headers](/screenshots/swagger-github-pages.png?raw=true)
-    
-3. Browse to the Swagger documentation at `https://{github-username}.github.io/{repository-name}/`.
+The Swagger UI assets are stored in this repository. A GitHub Actions workflow may propose UI dependency updates; review rather than automatically merge them. Keep docs changes small, open PRs against `master`, and avoid unnecessary dependency churn. See [AGENTS.md](AGENTS.md).
 
+## Licensing
 
-## Steps to manually configure in your own repository
-
-1. Download the latest stable release of the Swagger UI [here](https://github.com/swagger-api/swagger-ui/releases).
-
-2. Extract the contents and copy the "dist" directory to the root of your repository.
-
-3. Move the file "index.html" from the directory "dist" to the root of your repository.
-    ```
-    mv dist/index.html .
-    ```
-    
-4. Copy the YAML specification file for your API to the root of your repository.
-
-5. Edit [dist/swagger-initializer.js](dist/swagger-initializer.js) and change the `url` property to reference your local YAML file. 
-    ```javascript
-        window.ui = SwaggerUIBundle({
-            url: "swagger.yaml",
-        ...
-    ```
-    Then fix any references to files in the "dist" directory.
-    ```html
-    ...
-    <link rel="stylesheet" type="text/css" href="dist/swagger-ui.css" >
-    <link rel="icon" type="image/png" href="dist/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="dist/favicon-16x16.png" sizes="16x16" />    
-    ...
-    <script src="dist/swagger-ui-bundle.js"> </script>
-    <script src="dist/swagger-ui-standalone-preset.js"> </script>    
-    ...
-    ```
-    
-6. Go to the settings for your repository at `https://github.com/{github-username}/{repository-name}/settings` and enable GitHub Pages.
-
-    ![Headers](/screenshots/swagger-github-pages.png?raw=true)
-    
-7. Browse to the Swagger documentation at `https://{github-username}.github.io/{repository-name}/`.
-
-   The example API specification used by this repository can be seen hosted at [https://peter-evans.github.io/swagger-github-pages](https://peter-evans.github.io/swagger-github-pages/).
+Swagger UI assets retain their upstream licenses. Licensing for original Hoppy Coin code and documentation requires separate owner confirmation.
